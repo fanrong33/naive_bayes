@@ -8,7 +8,12 @@ from sklearn.metrics import accuracy_score
 from sklearn.externals import joblib
 
 
-
+# 加载数据集
+'''
+[搜狐新闻数据](http://www.sogou.com/labs/resource/list_news.php)
+数据介绍：来自搜狐近20个栏目的分类新闻数据。
+发布时间：2012年8月16号
+'''
 import os
 import codecs
 
@@ -41,7 +46,7 @@ for category in class_code:
             except:
                 pass
 
-# 分词
+# 新闻文本分词
 print('对新闻分词')
 import jieba
 for i in corpus:
@@ -51,18 +56,15 @@ for i in corpus:
 # 特征提取
 # \u3000 全角空格
 # 去掉停用词
-# print(seg_text)
-# print(Y)
 
 
 
 print('特征提取')
 stop_words= ['\u3000']
+# TODO 完善中文停用词
 vectorizer = TfidfVectorizer(stop_words=stop_words)
 vectorizer.fit(seg_text)
 X = vectorizer.transform(seg_text).toarray()
-# print(X)
-# print(X.shape)
 
 
 # 训练模型
